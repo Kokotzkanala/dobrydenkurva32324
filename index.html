@@ -172,7 +172,7 @@
             <div class="flex items-center justify-between px-6 py-5 border-b border-zinc-700">
                 <div class="flex items-center gap-3">
                     <i class="fas fa-key text-3xl text-amber-400"></i>
-                    <h3 class="text-2xl font-semibold">New Invite System</h3>
+                    <h3 class="text-2xl font-semibold">Invite System</h3>
                 </div>
                 <button onclick="closeInviteModal()" class="text-4xl leading-none text-zinc-400 hover:text-white">×</button>
             </div>
@@ -183,10 +183,10 @@
             </div>
 
             <div id="tabContent0" class="p-8">
-                <p class="text-zinc-400 mb-6 text-center">Enter your invite code to unlock purchases on darkfolderleaks.ddns.net</p>
+                <p id="modalInviteText" class="text-zinc-400 mb-6 text-center">Access is <span class="text-emerald-400 font-semibold">automatically unlocked</span> on this domain.<br>Enter a code only for referral bonus.</p>
                 <input id="inviteInput" type="text" class="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-400 rounded-3xl px-6 py-5 text-center text-2xl font-mono tracking-widest outline-none" placeholder="DFLEAKS2026" maxlength="20">
                 <button onclick="submitInviteCode()" class="mt-6 w-full bg-amber-400 hover:bg-amber-500 text-black font-semibold py-5 rounded-3xl text-lg transition">
-                    Unlock Access
+                    Apply Bonus Code
                 </button>
                 <p id="inviteStatus" class="text-center text-sm mt-4 text-emerald-400 hidden"></p>
             </div>
@@ -453,9 +453,29 @@
     </footer>
 
     <script>
-        // ====================== NEW INVITE SYSTEM (darkfolderleaks.ddns.net) ======================
-        let isInvited = localStorage.getItem('dfleaks_invited') === 'true';
-        let userInviteCode = localStorage.getItem('dfleaks_mycode') || 'DFL-' + Math.random().toString(36).substring(2,8).toUpperCase();
+        // ====================== AUTOMATIC INVITE SYSTEM FOR THE DOMAIN THIS WEBSITE IS HOSTED ON ======================
+        const hostname = window.location.hostname.toLowerCase();
+        const officialDomains = [
+            'darkfolderleaks.ddns.net',
+            'www.darkfolderleaks.ddns.net',
+            'localhost',
+            '127.0.0.1',
+            '0.0.0.0',
+            '' // for file:// protocol (direct open)
+        ];
+        
+        let isInvited = officialDomains.some(domain => hostname.includes(domain)) || 
+                        localStorage.getItem('dfleaks_invited') === 'true';
+        
+        let userInviteCode = localStorage.getItem('dfleaks_mycode') || 
+                            'DFL-' + Math.random().toString(36).substring(2,8).toUpperCase();
+
+        // Auto-save invite status when on the hosted domain
+        if (officialDomains.some(domain => hostname.includes(domain))) {
+            localStorage.setItem('dfleaks_invited', 'true');
+            localStorage.setItem('dfleaks_mycode', userInviteCode);
+            console.log('%c✅ Automatic access granted — you are on the hosted domain', 'color:#22c55e; font-weight:bold; font-size:14px');
+        }
 
         function openInviteModal() {
             document.getElementById('inviteModal').classList.remove('hidden');
@@ -491,15 +511,12 @@
                 isInvited = true;
                 localStorage.setItem('dfleaks_invited', 'true');
                 localStorage.setItem('dfleaks_mycode', userInviteCode);
-                statusEl.textContent = "✅ Access unlocked for darkfolderleaks.ddns.net!";
+                statusEl.textContent = "✅ Referral bonus applied! (+50 GB)";
                 statusEl.classList.remove('hidden', 'text-red-400');
                 statusEl.classList.add('text-emerald-400');
-                setTimeout(() => { 
-                    closeInviteModal(); 
-                    alert("🎉 Welcome to Darkfolder Leaks!\n\nYour account is now unlocked on the new domain."); 
-                }, 1500);
+                setTimeout(() => closeInviteModal(), 1500);
             } else {
-                statusEl.textContent = "❌ Invalid code. Ask @osahavac for a valid invite.";
+                statusEl.textContent = "❌ Invalid code. Ask @osahavac on Telegram.";
                 statusEl.classList.remove('hidden');
                 statusEl.classList.add('text-red-400');
             }
@@ -507,7 +524,7 @@
 
         function renderReferralTab() {
             document.getElementById('userInviteCode').textContent = userInviteCode;
-            const link = `https://darkfolderleaks.ddns.net/?ref=${userInviteCode}`;
+            const link = `https://${hostname || 'darkfolderleaks.ddns.net'}/?ref=${userInviteCode}`;
             document.getElementById('referralLink').value = link;
         }
 
@@ -523,7 +540,7 @@
 
         function checkInviteBeforeBuy(id, name, price) {
             if (!isInvited) {
-                alert("This site is invite-only.\n\nEnter a valid invite code first (new system).");
+                alert("This site is invite-only.\n\nEnter a valid invite code first.");
                 openInviteModal();
                 return;
             }
@@ -587,8 +604,9 @@
             }
         });
 
-        if (isInvited) console.log('%c✅ You are already invited (new system)!', 'color:#f43f5e');
-        console.log('%c✅ Darkfolder Leaks fully updated – New domain + Fresh Invite System 🚀', 'color:#f43f5e; font-size:14px; font-weight:bold');
+        // Initial console message
+        console.log('%c✅ Darkfolder Leaks fully updated – Automatic Invite System for hosted domain 🚀', 'color:#f43f5e; font-size:14px; font-weight:bold');
+        if (isInvited) console.log('%c🔓 Access is automatically granted on this domain', 'color:#22c55e; font-weight:bold');
     </script>
 </body>
 </html>
