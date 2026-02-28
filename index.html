@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Darkfolders • Premium Mega • Cloud • Torrent Folders</title>
+    <title>Darkfolder Leaks • Premium Mega • Cloud • Torrent Folders</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
@@ -60,7 +60,7 @@
         <div class="max-w-7xl mx-auto px-5 md:px-8 py-5 flex items-center justify-between">
             <div class="flex items-center gap-x-3">
                 <div class="w-10 h-10 bg-gradient-to-br from-rose-500 to-red-600 rounded-3xl flex items-center justify-center text-3xl font-black logo text-white shadow-lg">DF</div>
-                <span class="logo text-3xl font-semibold tracking-tighter text-white">Darkfolders</span>
+                <span class="logo text-3xl font-semibold tracking-tighter text-white">Darkfolder Leaks</span>
             </div>
 
             <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
@@ -130,7 +130,7 @@
             </div>
             
             <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold logo tracking-tighter leading-none mb-6">
-                Dark Folders.<br>
+                Darkfolder Leaks.<br>
                 <span class="bg-gradient-to-r from-rose-400 to-red-400 bg-clip-text text-transparent">Insanely Cheap.</span>
             </h1>
             
@@ -172,7 +172,7 @@
             <div class="flex items-center justify-between px-6 py-5 border-b border-zinc-700">
                 <div class="flex items-center gap-3">
                     <i class="fas fa-key text-3xl text-amber-400"></i>
-                    <h3 class="text-2xl font-semibold">Invite System</h3>
+                    <h3 class="text-2xl font-semibold">New Invite System</h3>
                 </div>
                 <button onclick="closeInviteModal()" class="text-4xl leading-none text-zinc-400 hover:text-white">×</button>
             </div>
@@ -183,8 +183,8 @@
             </div>
 
             <div id="tabContent0" class="p-8">
-                <p class="text-zinc-400 mb-6 text-center">Enter your invite code to unlock purchases</p>
-                <input id="inviteInput" type="text" class="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-400 rounded-3xl px-6 py-5 text-center text-2xl font-mono tracking-widest outline-none" placeholder="DARK2026" maxlength="20">
+                <p class="text-zinc-400 mb-6 text-center">Enter your invite code to unlock purchases on darkfolderleaks.ddns.net</p>
+                <input id="inviteInput" type="text" class="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-400 rounded-3xl px-6 py-5 text-center text-2xl font-mono tracking-widest outline-none" placeholder="DFLEAKS2026" maxlength="20">
                 <button onclick="submitInviteCode()" class="mt-6 w-full bg-amber-400 hover:bg-amber-500 text-black font-semibold py-5 rounded-3xl text-lg transition">
                     Unlock Access
                 </button>
@@ -419,7 +419,7 @@
         </div>
     </section>
 
-    <!-- FREE 10 GB MODAL (FIXED WITH NEW URL) -->
+    <!-- FREE 10 GB MODAL -->
     <div id="freeModal" class="hidden fixed inset-0 bg-black/90 z-[999] flex items-center justify-center p-4">
         <div class="modal bg-zinc-900 rounded-3xl w-full max-w-3xl overflow-hidden border border-rose-500/30">
             <div class="flex justify-between items-center px-6 py-5 border-b border-zinc-700">
@@ -447,15 +447,15 @@
                 <a href="#" class="hover:text-white">Terms</a>
                 <a href="#" class="hover:text-white">Privacy</a>
             </div>
-            <p>© 2026 Darkfolders. All folders are for personal use only.</p>
-            <p class="text-xs mt-4">Demo website – purchases are simulated</p>
+            <p>© 2026 Darkfolder Leaks. All folders are for personal use only.</p>
+            <p class="text-xs mt-4">Demo website – purchases are simulated • Domain: darkfolderleaks.ddns.net</p>
         </div>
     </footer>
 
     <script>
-        // ====================== INVITE SYSTEM ======================
-        let isInvited = localStorage.getItem('darkfolders_invited') === 'true';
-        let userInviteCode = localStorage.getItem('darkfolders_mycode') || 'DF-' + Math.random().toString(36).substring(2,8).toUpperCase();
+        // ====================== NEW INVITE SYSTEM (darkfolderleaks.ddns.net) ======================
+        let isInvited = localStorage.getItem('dfleaks_invited') === 'true';
+        let userInviteCode = localStorage.getItem('dfleaks_mycode') || 'DFL-' + Math.random().toString(36).substring(2,8).toUpperCase();
 
         function openInviteModal() {
             document.getElementById('inviteModal').classList.remove('hidden');
@@ -484,16 +484,20 @@
 
         function submitInviteCode() {
             const code = document.getElementById('inviteInput').value.trim().toUpperCase();
-            const validCodes = ["DARK2026", "MEGA100", "FOLDERSVIP", "DF2026", "OSAHAVAC", "BLACKFOLDER"];
+            const validCodes = ["DFLEAKS2026", "DARKLEAKS", "MEGALEAKS2026", "DFVIP2026", "LEAKSFOLDER", "ULTIMATELEAK", "BLACKLEAK", "DFDDNS26", "OSAHAVAC", "VIPLEAKS"];
             const statusEl = document.getElementById('inviteStatus');
             
             if (validCodes.includes(code)) {
                 isInvited = true;
-                localStorage.setItem('darkfolders_invited', 'true');
-                statusEl.textContent = "✅ Access unlocked! You can now buy packs.";
+                localStorage.setItem('dfleaks_invited', 'true');
+                localStorage.setItem('dfleaks_mycode', userInviteCode);
+                statusEl.textContent = "✅ Access unlocked for darkfolderleaks.ddns.net!";
                 statusEl.classList.remove('hidden', 'text-red-400');
                 statusEl.classList.add('text-emerald-400');
-                setTimeout(() => { closeInviteModal(); alert("🎉 Welcome to Darkfolders!\nYour account is now unlocked."); }, 1500);
+                setTimeout(() => { 
+                    closeInviteModal(); 
+                    alert("🎉 Welcome to Darkfolder Leaks!\n\nYour account is now unlocked on the new domain."); 
+                }, 1500);
             } else {
                 statusEl.textContent = "❌ Invalid code. Ask @osahavac for a valid invite.";
                 statusEl.classList.remove('hidden');
@@ -503,7 +507,7 @@
 
         function renderReferralTab() {
             document.getElementById('userInviteCode').textContent = userInviteCode;
-            const link = `https://darkfolders.xyz/?ref=${userInviteCode}`;
+            const link = `https://darkfolderleaks.ddns.net/?ref=${userInviteCode}`;
             document.getElementById('referralLink').value = link;
         }
 
@@ -519,7 +523,7 @@
 
         function checkInviteBeforeBuy(id, name, price) {
             if (!isInvited) {
-                alert("This site is invite-only.\n\nEnter a valid invite code first.");
+                alert("This site is invite-only.\n\nEnter a valid invite code first (new system).");
                 openInviteModal();
                 return;
             }
@@ -532,7 +536,7 @@
             window.open('https://t.me/osahavac', '_blank');
         }
 
-        // FREE PREVIEW - UPDATED SMARTLINK
+        // FREE PREVIEW
         let previewClicks = 0;
         function freePreviewClick() {
             previewClicks++;
@@ -546,7 +550,7 @@
             }
         }
 
-        // FREE 10 GB MODAL - UPDATED URL LOCKER
+        // FREE 10 GB MODAL
         function showFree10GBModal() {
             document.getElementById('freeModal').classList.remove('hidden');
             document.getElementById('freeModal').classList.add('flex');
@@ -583,8 +587,8 @@
             }
         });
 
-        if (isInvited) console.log('%c✅ You are already invited!', 'color:#f43f5e');
-        console.log('%c✅ Darkfolders fully updated – Smartlink + 10 GB Locker fixed 🚀', 'color:#f43f5e; font-size:14px; font-weight:bold');
+        if (isInvited) console.log('%c✅ You are already invited (new system)!', 'color:#f43f5e');
+        console.log('%c✅ Darkfolder Leaks fully updated – New domain + Fresh Invite System 🚀', 'color:#f43f5e; font-size:14px; font-weight:bold');
     </script>
 </body>
 </html>
