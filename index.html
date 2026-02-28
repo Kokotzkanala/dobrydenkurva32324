@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Darkfolders • Premium Mega • Cloud • Torrent Folders</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap');
+        body { font-family: 'Inter', system-ui, sans-serif; }
+        .logo { font-family: 'Space Grotesk', sans-serif; }
+        
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px -12px rgb(244 63 94 / 0.25);
+        }
+        
+        .hero-bg {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+        }
+        
+        .modal {
+            animation: modalPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes modalPop {
+            from { opacity: 0; transform: scale(0.9) translateY(30px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+        }
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        
+        button, .btn {
+            min-height: 48px;
+        }
+        
+        .red-glow {
+            box-shadow: 0 0 25px -5px rgb(244 63 94 / 0.4);
+        }
+        
+        .invite-code {
+            font-family: monospace;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-100 overflow-x-hidden">
+
+    <!-- NAVBAR -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-zinc-900/95 backdrop-blur-lg border-b border-zinc-800">
+        <div class="max-w-7xl mx-auto px-5 md:px-8 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-x-3">
+                <div class="w-10 h-10 bg-gradient-to-br from-rose-500 to-red-600 rounded-3xl flex items-center justify-center text-3xl font-black logo text-white shadow-lg">DF</div>
+                <span class="logo text-3xl font-semibold tracking-tighter text-white">Darkfolders</span>
+            </div>
+
+            <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
+                <a href="#packs" class="hover:text-rose-400 transition">Packs</a>
+                <a href="#how" class="hover:text-rose-400 transition">How it Works</a>
+                <a href="#club" class="hover:text-rose-400 transition">Maka Club</a>
+            </div>
+
+            <div class="hidden md:flex items-center gap-x-3">
+                <button onclick="freePreviewClick()" class="flex items-center gap-x-2 px-5 py-3 text-sm font-medium border border-rose-500 text-rose-400 hover:bg-rose-500 hover:text-white rounded-3xl transition">
+                    <i class="fas fa-eye"></i>
+                    <span>Free Preview</span>
+                </button>
+                <button onclick="showFree10GBModal()" class="flex items-center gap-x-2 px-5 py-3 text-sm font-medium border border-white hover:bg-white hover:text-black rounded-3xl transition">
+                    <i class="fas fa-gift"></i>
+                    <span>Free 10 GB</span>
+                </button>
+                <button onclick="openInviteModal()" class="flex items-center gap-x-2 px-5 py-3 text-sm font-medium border border-amber-400 text-amber-400 hover:bg-amber-400 hover:text-black rounded-3xl transition">
+                    <i class="fas fa-key"></i>
+                    <span>Invite System</span>
+                </button>
+                <button onclick="document.getElementById('packs').scrollIntoView({behavior:'smooth'})" class="bg-white text-black font-semibold px-6 py-3 rounded-3xl hover:bg-rose-500 hover:text-white transition">
+                    Browse Packs
+                </button>
+            </div>
+
+            <button id="hamburger" class="md:hidden w-11 h-11 flex items-center justify-center text-2xl text-white">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- MOBILE MENU -->
+        <div id="mobileMenu" class="mobile-menu fixed top-[73px] right-0 bottom-0 w-80 bg-zinc-900 border-l border-zinc-700 p-6 flex flex-col z-[60]">
+            <div class="flex flex-col gap-6 text-lg font-medium">
+                <a href="#packs" onclick="toggleMobileMenu()" class="hover:text-rose-400 py-3">Packs</a>
+                <a href="#how" onclick="toggleMobileMenu()" class="hover:text-rose-400 py-3">How it Works</a>
+                <a href="#club" onclick="toggleMobileMenu()" class="hover:text-rose-400 py-3">Maka Club</a>
+                <a onclick="openInviteModal();toggleMobileMenu()" class="hover:text-amber-400 py-3 flex items-center gap-2">
+                    <i class="fas fa-key"></i> Invite System
+                </a>
+            </div>
+            
+            <div class="mt-auto flex flex-col gap-4">
+                <button onclick="freePreviewClick();toggleMobileMenu()" class="flex items-center justify-center gap-x-3 bg-zinc-800 border border-rose-500 text-rose-400 py-4 rounded-3xl font-medium">
+                    <i class="fas fa-eye"></i> Free Preview
+                </button>
+                <button onclick="showFree10GBModal();toggleMobileMenu()" class="flex items-center justify-center gap-x-3 bg-gradient-to-r from-rose-500 to-red-600 text-white py-4 rounded-3xl font-medium">
+                    <i class="fas fa-gift"></i> Free 10 GB Mega
+                </button>
+                <button onclick="document.getElementById('packs').scrollIntoView({behavior:'smooth'});toggleMobileMenu()" class="bg-white text-black py-4 rounded-3xl font-semibold">
+                    Browse All Packs
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero-bg pt-28 pb-20 md:pt-32 md:pb-28 relative">
+        <div class="absolute top-8 left-1/2 -translate-x-1/2 bg-zinc-900 border border-amber-400 text-amber-400 text-xs font-bold px-6 py-2 rounded-full flex items-center gap-2 shadow-lg">
+            <i class="fas fa-lock"></i> INVITE ONLY
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-5 md:px-8 text-center">
+            <div class="inline-flex items-center gap-x-3 bg-zinc-900 border border-rose-500/30 rounded-full px-5 py-2 text-rose-400 text-xs md:text-sm font-medium mb-6">
+                <div class="w-2 h-2 bg-rose-500 rounded-full animate-pulse"></div>
+                INSTANT DELIVERY • LIFETIME ACCESS
+            </div>
+            
+            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold logo tracking-tighter leading-none mb-6">
+                Dark Folders.<br>
+                <span class="bg-gradient-to-r from-rose-400 to-red-400 bg-clip-text text-transparent">Insanely Cheap.</span>
+            </h1>
+            
+            <p class="max-w-xl mx-auto text-xl md:text-2xl text-zinc-400 px-4">
+                Mega.nz • Cloud • Torrent &amp; Mixed packs.<br class="hidden sm:block">
+                One-time payment. Unlimited downloads. Zero wait.
+            </p>
+            
+            <div class="mt-12 flex flex-col sm:flex-row gap-4 justify-center items-center px-4">
+                <button onclick="document.getElementById('packs').scrollIntoView({behavior:'smooth'})" class="w-full sm:w-auto group flex items-center justify-center gap-x-3 bg-white hover:bg-white/90 text-zinc-950 font-semibold text-lg md:text-xl px-10 py-6 rounded-3xl transition-all">
+                    <span>Browse All Packs</span>
+                    <i class="fas fa-arrow-right group-active:rotate-45 transition"></i>
+                </button>
+                <button onclick="document.getElementById('club').scrollIntoView({behavior:'smooth'})" class="w-full sm:w-auto px-10 py-6 border-2 border-white/30 hover:border-white rounded-3xl font-medium text-lg md:text-xl transition">
+                    Join Maka Club →
+                </button>
+            </div>
+
+            <div class="mt-16 flex flex-col sm:flex-row gap-4 justify-center items-center px-4">
+                <button onclick="freePreviewClick()" class="w-full sm:w-auto flex items-center justify-center gap-x-3 bg-zinc-900 border-2 border-rose-500 hover:bg-rose-900 text-rose-400 font-semibold text-base md:text-lg px-8 py-5 rounded-3xl transition red-glow">
+                    <i class="fas fa-eye text-xl"></i>
+                    <span>Free Preview (2 clicks)</span>
+                </button>
+                <button onclick="showFree10GBModal()" class="w-full sm:w-auto flex items-center justify-center gap-x-3 bg-gradient-to-r from-rose-500 to-red-600 hover:from-rose-600 hover:to-red-700 text-white font-semibold text-base md:text-lg px-8 py-5 rounded-3xl transition">
+                    <i class="fas fa-gift text-xl"></i>
+                    <span>Free 10 GB Mega Link</span>
+                </button>
+            </div>
+            
+            <p class="mt-6 text-xs md:text-sm text-rose-400/80 px-4">
+                First click → smartlink • Second click → real preview folder
+            </p>
+        </div>
+    </header>
+
+    <!-- INVITE MODAL -->
+    <div id="inviteModal" class="hidden fixed inset-0 bg-black/90 z-[999] flex items-center justify-center p-4">
+        <div class="modal bg-zinc-900 rounded-3xl w-full max-w-lg overflow-hidden border border-rose-500/30">
+            <div class="flex items-center justify-between px-6 py-5 border-b border-zinc-700">
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-key text-3xl text-amber-400"></i>
+                    <h3 class="text-2xl font-semibold">Invite System</h3>
+                </div>
+                <button onclick="closeInviteModal()" class="text-4xl leading-none text-zinc-400 hover:text-white">×</button>
+            </div>
+
+            <div class="flex border-b border-zinc-700">
+                <button onclick="switchInviteTab(0)" id="tab0" class="flex-1 py-4 text-center font-medium border-b-2 border-amber-400 text-amber-400">Enter Invite Code</button>
+                <button onclick="switchInviteTab(1)" id="tab1" class="flex-1 py-4 text-center font-medium text-zinc-400">Your Referral Link</button>
+            </div>
+
+            <div id="tabContent0" class="p-8">
+                <p class="text-zinc-400 mb-6 text-center">Enter your invite code to unlock purchases</p>
+                <input id="inviteInput" type="text" class="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-400 rounded-3xl px-6 py-5 text-center text-2xl font-mono tracking-widest outline-none" placeholder="DARK2026" maxlength="20">
+                <button onclick="submitInviteCode()" class="mt-6 w-full bg-amber-400 hover:bg-amber-500 text-black font-semibold py-5 rounded-3xl text-lg transition">
+                    Unlock Access
+                </button>
+                <p id="inviteStatus" class="text-center text-sm mt-4 text-emerald-400 hidden"></p>
+            </div>
+
+            <div id="tabContent1" class="p-8 hidden">
+                <div class="text-center mb-6">
+                    <div class="text-amber-400 text-sm font-medium">YOUR PERSONAL INVITE CODE</div>
+                    <div id="userInviteCode" class="invite-code text-4xl font-bold text-amber-400 bg-zinc-800 py-4 px-6 rounded-3xl mt-3 inline-block">LOADING...</div>
+                </div>
+                <div class="text-zinc-400 text-sm mb-4">Share this link with friends:</div>
+                <div class="flex gap-3">
+                    <input id="referralLink" readonly class="flex-1 bg-zinc-800 border border-zinc-700 rounded-3xl px-6 py-5 text-sm text-zinc-300">
+                    <button onclick="copyReferralLink()" class="bg-zinc-700 hover:bg-zinc-600 px-8 rounded-3xl text-sm font-medium">COPY</button>
+                </div>
+                <div class="mt-8 text-xs text-zinc-500 text-center">
+                    When a friend joins using your code you both get <span class="text-emerald-400">+50 GB bonus</span>
+                </div>
+            </div>
+
+            <div class="px-8 py-6 bg-zinc-950 text-center text-xs text-zinc-500">
+                Need an invite? Message <a href="https://t.me/osahavac" target="_blank" class="text-rose-400 hover:underline">@osahavac</a> on Telegram
+            </div>
+        </div>
+    </div>
+
+    <!-- PACKS SECTION -->
+    <section id="packs" class="py-16 md:py-24 bg-black">
+        <div class="max-w-7xl mx-auto px-5 md:px-8">
+            <div class="text-center mb-12 md:mb-16">
+                <span class="px-6 py-2 bg-zinc-900 text-rose-400 text-xs font-bold tracking-widest rounded-full">ONE-TIME PAYMENT • LIFETIME ACCESS</span>
+                <h2 class="text-4xl md:text-5xl font-semibold mt-6">Choose Your Folder Pack</h2>
+                <p class="text-zinc-400 mt-3 text-lg">All packs include direct links + full support</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+
+                <!-- PACK 1 -->
+                <div class="card-hover bg-zinc-900 rounded-3xl p-6 md:p-8 border border-zinc-800 flex flex-col">
+                    <div class="text-rose-400 text-sm font-medium mb-1">STARTER</div>
+                    <div class="flex items-baseline gap-1"><span class="text-5xl md:text-6xl font-bold">$20</span></div>
+                    <div class="text-3xl font-semibold mt-1 mb-6">80 GB</div>
+                    <div class="pack-type text-rose-400 bg-rose-900/30 w-fit px-4 py-1 rounded-2xl text-xs mb-8">MEGA LINK</div>
+                    <ul class="space-y-4 text-sm flex-1">
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-rose-400"></i> Instant Mega link</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-rose-400"></i> High-speed download</li>
+                    </ul>
+                    <button onclick="checkInviteBeforeBuy(1, 'Starter 80 GB Mega', 20)" class="mt-10 w-full py-5 bg-zinc-800 hover:bg-rose-500 hover:text-white rounded-3xl font-semibold transition">Buy Now — $20</button>
+                </div>
+
+                <!-- PACK 2 RECOMMENDED -->
+                <div class="card-hover bg-gradient-to-br from-zinc-900 via-rose-950 to-zinc-900 rounded-3xl p-6 md:p-8 border-2 border-rose-500 flex flex-col relative">
+                    <div class="absolute -top-3 right-6 bg-rose-500 text-white text-xs font-bold px-5 py-1 rounded-3xl">RECOMMENDED</div>
+                    <div class="text-rose-400 text-sm font-medium mb-1">VALUE MEGA</div>
+                    <div class="flex items-baseline gap-1"><span class="text-5xl md:text-6xl font-bold">$50</span></div>
+                    <div class="text-3xl font-semibold mt-1 mb-6">125 GB</div>
+                    <div class="pack-type text-rose-400 bg-rose-900/30 w-fit px-4 py-1 rounded-2xl text-xs mb-8">MEGA LINK</div>
+                    <ul class="space-y-4 text-sm flex-1">
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-rose-400"></i> Best value</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-rose-400"></i> Fresh content</li>
+                    </ul>
+                    <button onclick="checkInviteBeforeBuy(2, 'Recommended 125 GB Mega', 50)" class="mt-10 w-full py-5 bg-rose-500 text-white font-semibold rounded-3xl hover:bg-rose-600 transition">Buy Recommended — $50</button>
+                </div>
+
+                <!-- PACK 3 BEST -->
+                <div class="card-hover bg-zinc-900 rounded-3xl p-6 md:p-8 border border-amber-400 flex flex-col relative">
+                    <div class="absolute -top-3 right-6 bg-amber-400 text-black text-xs font-bold px-5 py-1 rounded-3xl">BEST</div>
+                    <div class="text-rose-400 text-sm font-medium mb-1">POPULAR MEGA</div>
+                    <div class="flex items-baseline gap-1"><span class="text-5xl md:text-6xl font-bold">$80</span></div>
+                    <div class="text-3xl font-semibold mt-1 mb-6">250 GB</div>
+                    <div class="pack-type text-rose-400 bg-rose-900/30 w-fit px-4 py-1 rounded-2xl text-xs mb-8">MEGA LINK</div>
+                    <ul class="space-y-4 text-sm flex-1">
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-rose-400"></i> Most popular size</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-rose-400"></i> Weekly updates</li>
+                    </ul>
+                    <button onclick="checkInviteBeforeBuy(3, 'Best 250 GB Mega', 80)" class="mt-10 w-full py-5 bg-amber-400 text-black font-semibold rounded-3xl hover:bg-amber-300 transition">Buy Best — $80</button>
+                </div>
+
+                <!-- PACK 4 -->
+                <div class="card-hover bg-zinc-900 rounded-3xl p-6 md:p-8 border border-zinc-800 flex flex-col">
+                    <div class="text-rose-400 text-sm font-medium mb-1">MEGA PRO</div>
+                    <div class="flex items-baseline gap-1"><span class="text-5xl md:text-6xl font-bold">$100</span></div>
+                    <div class="text-3xl font-semibold mt-1 mb-6">500 GB</div>
+                    <div class="pack-type text-rose-400 bg-rose-900/30 w-fit px-4 py-1 rounded-2xl text-xs mb-8">MEGA LINK</div>
+                    <ul class="space-y-4 text-sm flex-1">
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-rose-400"></i> Half-terabyte</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-rose-400"></i> Premium selection</li>
+                    </ul>
+                    <button onclick="checkInviteBeforeBuy(4, '500 GB Mega Pro', 100)" class="mt-10 w-full py-5 bg-zinc-800 hover:bg-rose-500 hover:text-white rounded-3xl font-semibold transition">Buy Now — $100</button>
+                </div>
+
+                <!-- PACK 5 -->
+                <div class="card-hover bg-zinc-900 rounded-3xl p-6 md:p-8 border border-zinc-800 flex flex-col">
+                    <div class="text-rose-400 text-sm font-medium mb-1">TORRENT GIANT</div>
+                    <div class="flex items-baseline gap-1"><span class="text-5xl md:text-6xl font-bold">$130</span></div>
+                    <div class="text-3xl font-semibold mt-1 mb-6">2 TB</div>
+                    <div class="pack-type text-orange-400 bg-orange-900/30 w-fit px-4 py-1 rounded-2xl text-xs mb-8">TORRENT FOLDER</div>
+                    <ul class="space-y-4 text-sm flex-1">
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-rose-400"></i> 2 Terabytes</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-rose-400"></i> Magnet link included</li>
+                    </ul>
+                    <button onclick="checkInviteBeforeBuy(5, '2 TB Torrent Giant', 130)" class="mt-10 w-full py-5 bg-zinc-800 hover:bg-rose-500 hover:text-white rounded-3xl font-semibold transition">Buy Now — $130</button>
+                </div>
+
+                <!-- PACK 6 -->
+                <div class="card-hover bg-zinc-900 rounded-3xl p-6 md:p-8 border border-zinc-800 flex flex-col">
+                    <div class="text-rose-400 text-sm font-medium mb-1">DUAL MEGA</div>
+                    <div class="flex items-baseline gap-1"><span class="text-5xl md:text-6xl font-bold">$55</span></div>
+                    <div class="text-3xl font-semibold mt-1 mb-6">170 GB</div>
+                    <div class="pack-type text-rose-400 bg-rose-900/30 w-fit px-4 py-1 rounded-2xl text-xs mb-8">2 CATEGORIES • MEGA</div>
+                    <ul class="space-y-4 text-sm flex-1">
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-rose-400"></i> Two separate links</li>
+                    </ul>
+                    <button onclick="checkInviteBeforeBuy(6, '170 GB Dual Mega', 55)" class="mt-10 w-full py-5 bg-zinc-800 hover:bg-rose-500 hover:text-white rounded-3xl font-semibold transition">Buy Now — $55</button>
+                </div>
+
+                <!-- PACK 7 -->
+                <div class="card-hover bg-zinc-900 rounded-3xl p-6 md:p-8 border border-zinc-800 flex flex-col">
+                    <div class="text-rose-400 text-sm font-medium mb-1">BUDGET MEGA</div>
+                    <div class="flex items-baseline gap-1"><span class="text-5xl md:text-6xl font-bold">$45</span></div>
+                    <div class="text-3xl font-semibold mt-1 mb-6">120 GB</div>
+                    <div class="pack-type text-rose-400 bg-rose-900/30 w-fit px-4 py-1 rounded-2xl text-xs mb-8">MEGA LINK</div>
+                    <button onclick="checkInviteBeforeBuy(7, '120 GB Budget Mega', 45)" class="mt-10 w-full py-5 bg-zinc-800 hover:bg-rose-500 hover:text-white rounded-3xl font-semibold transition">Buy Now — $45</button>
+                </div>
+
+                <!-- PACK 8 -->
+                <div class="card-hover bg-zinc-900 rounded-3xl p-6 md:p-8 border border-zinc-800 flex flex-col">
+                    <div class="text-sky-400 text-sm font-medium mb-1">CLOUD BASE</div>
+                    <div class="flex items-baseline gap-1"><span class="text-5xl md:text-6xl font-bold">$60</span></div>
+                    <div class="text-3xl font-semibold mt-1 mb-6">300 GB</div>
+                    <div class="pack-type text-sky-400 bg-sky-900/30 w-fit px-4 py-1 rounded-2xl text-xs mb-8">CLOUD FOLDER</div>
+                    <button onclick="checkInviteBeforeBuy(8, '300 GB Cloud', 60)" class="mt-10 w-full py-5 bg-zinc-800 hover:bg-rose-500 hover:text-white rounded-3xl font-semibold transition">Buy Now — $60</button>
+                </div>
+
+                <!-- PACK 9 -->
+                <div class="card-hover bg-zinc-900 rounded-3xl p-6 md:p-8 border border-zinc-800 flex flex-col">
+                    <div class="text-sky-400 text-sm font-medium mb-1">CLOUD PRO</div>
+                    <div class="flex items-baseline gap-1"><span class="text-5xl md:text-6xl font-bold">$70</span></div>
+                    <div class="text-3xl font-semibold mt-1 mb-6">350 GB</div>
+                    <div class="pack-type text-sky-400 bg-sky-900/30 w-fit px-4 py-1 rounded-2xl text-xs mb-8">CLOUD FOLDER</div>
+                    <button onclick="checkInviteBeforeBuy(9, '350 GB Cloud Pro', 70)" class="mt-10 w-full py-5 bg-zinc-800 hover:bg-rose-500 hover:text-white rounded-3xl font-semibold transition">Buy Now — $70</button>
+                </div>
+
+                <!-- PACK 10 -->
+                <div class="card-hover bg-zinc-900 rounded-3xl p-6 md:p-8 border border-purple-400 flex flex-col">
+                    <div class="text-purple-400 text-sm font-medium mb-1">MIXED</div>
+                    <div class="flex items-baseline gap-1"><span class="text-5xl md:text-6xl font-bold">$85</span></div>
+                    <div class="text-3xl font-semibold mt-1 mb-6">420 GB</div>
+                    <div class="pack-type text-purple-400 bg-purple-900/30 w-fit px-4 py-1 rounded-2xl text-xs mb-8">MEGA + CLOUD</div>
+                    <button onclick="checkInviteBeforeBuy(10, '420 GB Mixed', 85)" class="mt-10 w-full py-5 bg-zinc-800 hover:bg-rose-500 hover:text-white rounded-3xl font-semibold transition">Buy Now — $85</button>
+                </div>
+
+                <!-- PACK 11 -->
+                <div class="card-hover bg-zinc-900 rounded-3xl p-6 md:p-8 border border-rose-400 flex flex-col">
+                    <div class="text-rose-400 text-sm font-medium mb-1">CURATED</div>
+                    <div class="flex items-baseline gap-1"><span class="text-5xl md:text-6xl font-bold">$95</span></div>
+                    <div class="text-3xl font-semibold mt-1 mb-6">480 GB</div>
+                    <div class="pack-type text-rose-400 bg-rose-900/30 w-fit px-4 py-1 rounded-2xl text-xs mb-8">FAST MIRRORS</div>
+                    <button onclick="checkInviteBeforeBuy(11, '480 GB Curated Fast Mirrors', 95)" class="mt-10 w-full py-5 bg-zinc-800 hover:bg-rose-500 hover:text-white rounded-3xl font-semibold transition">Buy Now — $95</button>
+                </div>
+
+                <!-- PACK 12 -->
+                <div class="card-hover bg-zinc-900 rounded-3xl p-6 md:p-8 border border-amber-400 flex flex-col">
+                    <div class="text-amber-400 text-sm font-medium mb-1">ULTIMATE MIX</div>
+                    <div class="flex items-baseline gap-1"><span class="text-5xl md:text-6xl font-bold">$150</span></div>
+                    <div class="text-3xl font-semibold mt-1 mb-6">900 GB</div>
+                    <div class="pack-type text-amber-400 bg-amber-900/30 w-fit px-4 py-1 rounded-2xl text-xs mb-8">ULTIMATE MIX</div>
+                    <button onclick="checkInviteBeforeBuy(12, '900 GB Ultimate Mix', 150)" class="mt-10 w-full py-5 bg-zinc-800 hover:bg-rose-500 hover:text-white rounded-3xl font-semibold transition">Buy Now — $150</button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- MAKA CLUB -->
+    <section id="club" class="py-16 md:py-28 bg-gradient-to-b from-black to-zinc-900">
+        <div class="max-w-4xl mx-auto px-5 md:px-8">
+            <div class="bg-gradient-to-br from-rose-900 via-red-950 to-zinc-900 rounded-3xl p-8 md:p-16 text-center border border-rose-500/30">
+                <div class="mx-auto w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-amber-400 to-yellow-300 rounded-2xl flex items-center justify-center text-5xl mb-6">👑</div>
+                <h2 class="text-4xl md:text-5xl font-semibold mb-3">Exclusive Invite to the <span class="text-rose-300">Maka Club</span></h2>
+                <div class="text-6xl md:text-7xl font-bold text-white mb-2">$300</div>
+                <p class="text-xl md:text-2xl text-rose-200 mb-10">One-time lifetime membership</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left max-w-md mx-auto mb-12">
+                    <div class="flex gap-4 items-start">
+                        <i class="fas fa-crown text-3xl text-amber-400 mt-1"></i>
+                        <div>
+                            <div class="font-semibold">Priority Support</div>
+                            <div class="text-sm text-zinc-400">Instant replies 24/7</div>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 items-start">
+                        <i class="fas fa-rocket text-3xl text-rose-400 mt-1"></i>
+                        <div>
+                            <div class="font-semibold">Early Access</div>
+                            <div class="text-sm text-zinc-400">New packs before everyone</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button onclick="checkInviteBeforeBuy(0, 'Maka Club Exclusive Invite', 300)" class="bg-white text-black px-12 md:px-16 py-5 md:py-6 rounded-3xl font-bold text-xl md:text-2xl hover:scale-105 transition w-full md:w-auto">
+                    Get Exclusive Invite — $300
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how" class="py-16 md:py-24 bg-zinc-900">
+        <div class="max-w-7xl mx-auto px-5 md:px-8">
+            <div class="text-center mb-12 md:mb-16">
+                <h2 class="text-4xl md:text-5xl font-semibold">3 Steps. Done in 60 seconds.</h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="w-20 h-20 mx-auto rounded-2xl bg-rose-500/10 flex items-center justify-center text-4xl mb-6">1️⃣</div>
+                    <h3 class="text-2xl font-medium mb-3">Choose Pack</h3>
+                    <p class="text-zinc-400">Pick any pack above and click Buy Now</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-20 h-20 mx-auto rounded-2xl bg-rose-500/10 flex items-center justify-center text-4xl mb-6">2️⃣</div>
+                    <h3 class="text-2xl font-medium mb-3">Instant Payment</h3>
+                    <p class="text-zinc-400">Secure one-time payment (crypto or card)</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-20 h-20 mx-auto rounded-2xl bg-rose-500/10 flex items-center justify-center text-4xl mb-6">3️⃣</div>
+                    <h3 class="text-2xl font-medium mb-3">Receive Folder</h3>
+                    <p class="text-zinc-400">Mega/Cloud/Torrent link delivered immediately</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FREE 10 GB MODAL (FIXED WITH NEW URL) -->
+    <div id="freeModal" class="hidden fixed inset-0 bg-black/90 z-[999] flex items-center justify-center p-4">
+        <div class="modal bg-zinc-900 rounded-3xl w-full max-w-3xl overflow-hidden border border-rose-500/30">
+            <div class="flex justify-between items-center px-6 py-5 border-b border-zinc-700">
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-gift text-3xl text-rose-400"></i>
+                    <h3 class="text-2xl font-semibold">Free 10 GB Mega Link</h3>
+                </div>
+                <button onclick="closeFreeModal()" class="text-4xl leading-none text-zinc-400 hover:text-white">×</button>
+            </div>
+            <div class="p-4 md:p-8">
+                <iframe src="https://ultradownloder.com/1880009" class="w-full h-96 md:h-[560px] rounded-2xl border-none" allowfullscreen></iframe>
+            </div>
+            <div class="px-6 py-5 text-center text-sm text-zinc-400 bg-zinc-950">
+                Complete the short offer to unlock your 10 GB Mega.nz folder instantly
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-12 md:py-16 border-t border-zinc-800">
+        <div class="max-w-7xl mx-auto px-5 md:px-8 text-center text-zinc-500 text-sm">
+            <div class="flex justify-center gap-8 mb-8">
+                <a href="#" class="hover:text-white">Telegram</a>
+                <a href="#" class="hover:text-white">Discord</a>
+                <a href="#" class="hover:text-white">Terms</a>
+                <a href="#" class="hover:text-white">Privacy</a>
+            </div>
+            <p>© 2026 Darkfolders. All folders are for personal use only.</p>
+            <p class="text-xs mt-4">Demo website – purchases are simulated</p>
+        </div>
+    </footer>
+
+    <script>
+        // ====================== INVITE SYSTEM ======================
+        let isInvited = localStorage.getItem('darkfolders_invited') === 'true';
+        let userInviteCode = localStorage.getItem('darkfolders_mycode') || 'DF-' + Math.random().toString(36).substring(2,8).toUpperCase();
+
+        function openInviteModal() {
+            document.getElementById('inviteModal').classList.remove('hidden');
+            document.getElementById('inviteModal').classList.add('flex');
+            switchInviteTab(0);
+            renderReferralTab();
+        }
+
+        function closeInviteModal() {
+            document.getElementById('inviteModal').classList.add('hidden');
+            document.getElementById('inviteModal').classList.remove('flex');
+        }
+
+        function switchInviteTab(tab) {
+            document.getElementById('tabContent0').classList.toggle('hidden', tab !== 0);
+            document.getElementById('tabContent1').classList.toggle('hidden', tab !== 1);
+            document.getElementById('tab0').classList.toggle('border-b-2', tab === 0);
+            document.getElementById('tab0').classList.toggle('border-amber-400', tab === 0);
+            document.getElementById('tab0').classList.toggle('text-amber-400', tab === 0);
+            document.getElementById('tab0').classList.toggle('text-zinc-400', tab !== 0);
+            document.getElementById('tab1').classList.toggle('border-b-2', tab === 1);
+            document.getElementById('tab1').classList.toggle('border-amber-400', tab === 1);
+            document.getElementById('tab1').classList.toggle('text-amber-400', tab === 1);
+            document.getElementById('tab1').classList.toggle('text-zinc-400', tab !== 1);
+        }
+
+        function submitInviteCode() {
+            const code = document.getElementById('inviteInput').value.trim().toUpperCase();
+            const validCodes = ["DARK2026", "MEGA100", "FOLDERSVIP", "DF2026", "OSAHAVAC", "BLACKFOLDER"];
+            const statusEl = document.getElementById('inviteStatus');
+            
+            if (validCodes.includes(code)) {
+                isInvited = true;
+                localStorage.setItem('darkfolders_invited', 'true');
+                statusEl.textContent = "✅ Access unlocked! You can now buy packs.";
+                statusEl.classList.remove('hidden', 'text-red-400');
+                statusEl.classList.add('text-emerald-400');
+                setTimeout(() => { closeInviteModal(); alert("🎉 Welcome to Darkfolders!\nYour account is now unlocked."); }, 1500);
+            } else {
+                statusEl.textContent = "❌ Invalid code. Ask @osahavac for a valid invite.";
+                statusEl.classList.remove('hidden');
+                statusEl.classList.add('text-red-400');
+            }
+        }
+
+        function renderReferralTab() {
+            document.getElementById('userInviteCode').textContent = userInviteCode;
+            const link = `https://darkfolders.xyz/?ref=${userInviteCode}`;
+            document.getElementById('referralLink').value = link;
+        }
+
+        function copyReferralLink() {
+            const link = document.getElementById('referralLink').value;
+            navigator.clipboard.writeText(link).then(() => {
+                const btn = event.currentTarget;
+                const original = btn.textContent;
+                btn.textContent = "COPIED!";
+                setTimeout(() => btn.textContent = original, 2000);
+            });
+        }
+
+        function checkInviteBeforeBuy(id, name, price) {
+            if (!isInvited) {
+                alert("This site is invite-only.\n\nEnter a valid invite code first.");
+                openInviteModal();
+                return;
+            }
+            purchasePack(id, name, price);
+        }
+
+        function purchasePack(id, name, price) {
+            const message = `To purchase "${name}" ($${price}), contact @osahavac on Telegram now!\n\nJust send the pack name and I'll send you the link instantly.`;
+            alert(message);
+            window.open('https://t.me/osahavac', '_blank');
+        }
+
+        // FREE PREVIEW - UPDATED SMARTLINK
+        let previewClicks = 0;
+        function freePreviewClick() {
+            previewClicks++;
+            if (previewClicks === 1) {
+                window.open('https://trkfiles.com/1856043', '_blank');
+                alert("🔓 First click done!\n\nSmartlink opened.\n\nClick the Free Preview button again to unlock the real preview folder.");
+            } else {
+                window.open('https://magafiles.com/1866641', '_blank');
+                alert("✅ Free Preview Folder opened!\n\nEnjoy your free sample.");
+                previewClicks = 0;
+            }
+        }
+
+        // FREE 10 GB MODAL - UPDATED URL LOCKER
+        function showFree10GBModal() {
+            document.getElementById('freeModal').classList.remove('hidden');
+            document.getElementById('freeModal').classList.add('flex');
+        }
+        function closeFreeModal() {
+            document.getElementById('freeModal').classList.add('hidden');
+            document.getElementById('freeModal').classList.remove('flex');
+        }
+        document.getElementById('freeModal').addEventListener('click', function(e) {
+            if (e.target === this) closeFreeModal();
+        });
+
+        // Mobile Menu
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('open');
+            hamburger.innerHTML = mobileMenu.classList.contains('open') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        }
+        hamburger.addEventListener('click', toggleMobileMenu);
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "Escape") {
+                const modals = ['inviteModal', 'freeModal'];
+                modals.forEach(id => {
+                    const m = document.getElementById(id);
+                    if (m && !m.classList.contains('hidden')) {
+                        if (id === 'inviteModal') closeInviteModal();
+                        if (id === 'freeModal') closeFreeModal();
+                    }
+                });
+                mobileMenu.classList.remove('open');
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+
+        if (isInvited) console.log('%c✅ You are already invited!', 'color:#f43f5e');
+        console.log('%c✅ Darkfolders fully updated – Smartlink + 10 GB Locker fixed 🚀', 'color:#f43f5e; font-size:14px; font-weight:bold');
+    </script>
+</body>
+</html>
